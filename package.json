@@ -1,0 +1,23 @@
+{
+  "name": "it-inventory",
+  "private": true,
+  "description": "IT inventory manager with an interactive office floor-map editor",
+  "license": "MIT",
+  "author": "Iván Nieto Abarca (https://github.com/niet8)",
+  "packageManager": "pnpm@12.14.0",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "check:lines": "node scripts/check-max-lines.mjs",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "test": "pnpm -r --if-present test",
+    "build": "pnpm -r --if-present build"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.6.3",
+    "typescript": "7.0.2"
+  }
+}

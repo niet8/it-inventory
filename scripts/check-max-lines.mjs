@@ -13,7 +13,9 @@ const files = execFileSync('git', ['ls-files', '--cached', '--others', '--exclud
   .filter((file) => CHECKED.test(file) && !EXEMPT.test(file));
 
 const offenders = files.flatMap((file) => {
-  const lines = readFileSync(file, 'utf8').split('\n').length;
+  const content = readFileSync(file, 'utf8');
+  // A trailing newline ends the last line; it doesn't start a new one.
+  const lines = content.split('\n').length - (content.endsWith('\n') ? 1 : 0);
   const limit = TEST.test(file) ? TEST_LIMIT : SOURCE_LIMIT;
   return lines > limit ? [`${file}: ${lines} lines (limit ${limit})`] : [];
 });

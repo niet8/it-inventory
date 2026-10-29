@@ -2,6 +2,9 @@ packages:
   - apps/*
   - packages/*
 
-# Install scripts are opt-in; esbuild ships its binary as an optional dependency.
+# Install scripts are opt-in. esbuild ships its binary as an optional dependency;
+# Prisma downloads the schema engine used by `prisma migrate`.
 allowBuilds:
   esbuild: false
+  "@prisma/engines": true
+  prisma: true

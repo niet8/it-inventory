@@ -30,7 +30,7 @@ export const createServer = (config: Config, container: Container): FastifyInsta
   server.addHook('onClose', container.dispose);
   server.setErrorHandler(domainErrorHandler);
   server.setNotFoundHandler(notFoundHandler);
-  server.register(registerRoutes);
+  server.register(registerRoutes(container));
 
   return server;
 };

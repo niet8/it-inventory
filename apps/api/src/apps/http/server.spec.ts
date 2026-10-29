@@ -1,9 +1,16 @@
 import { afterAll, describe, expect, it } from 'vitest';
 
 import { loadConfig } from '#apps/http/config/env';
+import { buildContainer } from '#apps/http/container';
 import { createServer } from '#apps/http/server';
 
-const server = createServer(loadConfig({ NODE_ENV: 'test', CORS_ORIGINS: 'https://inventory.example.com' }));
+// No query runs here: the Prisma client only connects on first use.
+const testServer = (env: Record<string, string> = {}) => {
+  const config = loadConfig({ NODE_ENV: 'test', DATABASE_URL: 'postgresql://user:pass@localhost:5433/test', ...env });
+  return createServer(config, buildContainer(config));
+};
+
+const server = testServer({ CORS_ORIGINS: 'https://inventory.example.com' });
 
 afterAll(async () => {
   await server.close();
@@ -46,7 +53,7 @@ describe('createServer', () => {
 
   it('trusts X-Forwarded-For only for the configured proxy hops', async () => {
     const clientIp = async (hops: string) => {
-      const proxied = createServer(loadConfig({ NODE_ENV: 'test', TRUST_PROXY_HOPS: hops }));
+      const proxied = testServer({ TRUST_PROXY_HOPS: hops });
       proxied.get('/ip', async (request) => request.ip);
       const response = await proxied.inject({
         method: 'GET',

@@ -8,7 +8,7 @@ import { loggerFor } from '#apps/http/config/logger';
 import type { Container } from '#apps/http/container';
 import { notFoundHandler } from '#apps/http/middlewares/not-found';
 import { echoRequestId, generateRequestId, REQUEST_ID_HEADER } from '#apps/http/middlewares/request-id';
-import { registerRoutes } from '#apps/http/routes';
+import { buildRoutes } from '#apps/http/routes';
 import { domainErrorHandler } from '#shared/infrastructure/api/domain-error-handler';
 
 // The public demo has no login: rate limiting is its first line of defence. Autosave of the map is debounced.
@@ -30,7 +30,7 @@ export const createServer = (config: Config, container: Container): FastifyInsta
   server.addHook('onClose', container.dispose);
   server.setErrorHandler(domainErrorHandler);
   server.setNotFoundHandler(notFoundHandler);
-  server.register(registerRoutes);
+  server.register(buildRoutes(container));
 
   return server;
 };

@@ -32,7 +32,8 @@
     "test:integration": "vitest run --config vitest.integration.config.ts",
     "postinstall": "prisma generate",
     "db:migrate": "prisma migrate dev",
-    "db:deploy": "prisma migrate deploy"
+    "db:deploy": "prisma migrate deploy",
+    "seed": "tsx --conditions=source --env-file-if-exists=.env src/apps/seed/main.ts"
   },
   "dependencies": {
     "@fastify/cors": "11.3.1",

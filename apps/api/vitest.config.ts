@@ -14,6 +14,7 @@ export default defineConfig({
       exclude: [
         'src/**/*.spec.ts',
         'src/apps/http/main.ts',
+        'src/apps/seed/main.ts',
         'src/generated/**',
         // Repositories are covered by the integration suite.
         'src/modules/*/infrastructure/persistence/repositories/Prisma*.ts',

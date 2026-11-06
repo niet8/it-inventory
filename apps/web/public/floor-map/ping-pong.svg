@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 120" role="img" aria-label="Ping-pong table">
+  <!-- Top view: table with its centre line and net, plus a ball. -->
+  <rect x="4" y="4" width="72" height="112" rx="2" fill="#1d5fbf" stroke="#0f3b7a" stroke-width="2"/>
+  <rect x="7" y="7" width="66" height="106" fill="none" stroke="#ffffff" stroke-width="1.6"/>
+  <line x1="40" y1="7" x2="40" y2="113" stroke="#ffffff" stroke-width="1"/>
+  <line x1="2" y1="60" x2="78" y2="60" stroke="#e5e7eb" stroke-width="3"/>
+  <circle cx="56" cy="86" r="2.6" fill="#ffffff"/>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" role="img" aria-label="Desk">
+  <!-- Top view: desk surface, monitor, keyboard and chair. -->
+  <rect x="4" y="3" width="32" height="18" rx="2" fill="#d6c3a5" stroke="#8a7350" stroke-width="1.2"/>
+  <rect x="13" y="5" width="14" height="3" rx="1" fill="#3f4652"/>
+  <rect x="14" y="12" width="12" height="4" rx="1" fill="#f4f4f5" stroke="#9ca3af" stroke-width="0.8"/>
+  <rect x="12" y="24" width="16" height="12" rx="5" fill="#52525b"/>
+  <rect x="14" y="22" width="12" height="4" rx="2" fill="#71717a"/>
+</svg>

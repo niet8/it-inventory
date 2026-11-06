@@ -5,8 +5,8 @@ import { OBJECT_TYPES, type ObjectType, type Rotation } from '@/features/floor-m
 import { cn } from '@/shared/lib/utils';
 
 const IMAGES: Partial<Record<ObjectType, string>> = {
-  desk: '/floor-map/desk.webp',
-  'ping-pong': '/floor-map/ping-pong.webp',
+  desk: '/floor-map/desk.svg',
+  'ping-pong': '/floor-map/ping-pong.svg',
 };
 
 const ICONS: Partial<Record<ObjectType, LucideIcon>> = {

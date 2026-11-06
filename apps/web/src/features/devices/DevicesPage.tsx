@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import { DeviceFormDialog } from '@/features/devices/components/DeviceFormDialog';
 import { DeviceStats } from '@/features/devices/components/DeviceStats';
+import { EmployeesWithDevices } from '@/features/devices/components/EmployeesWithDevices';
 import { EmployeeFormDialog } from '@/features/employees/components/EmployeeFormDialog';
 import { Button } from '@/shared/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/tabs';
@@ -34,7 +35,9 @@ export function DevicesPage() {
           <TabsTrigger value="by-employee">By employee</TabsTrigger>
           <TabsTrigger value="stock">Stock</TabsTrigger>
         </TabsList>
-        <TabsContent value="by-employee" />
+        <TabsContent value="by-employee">
+          <EmployeesWithDevices />
+        </TabsContent>
         <TabsContent value="stock" />
       </Tabs>
 

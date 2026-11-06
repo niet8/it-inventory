@@ -1,0 +1,25 @@
+# Render blueprint for the API. The database lives on Neon: set DATABASE_URL in the Render dashboard.
+services:
+  - type: web
+    name: it-inventory-api
+    runtime: node
+    plan: free
+    region: frankfurt
+    branch: main
+    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm --filter @it-inventory/contracts build && pnpm --filter api build
+    preDeployCommand: pnpm --filter api db:deploy
+    startCommand: pnpm --filter api start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: "24"
+      # Render puts one proxy in front of the service.
+      - key: TRUST_PROXY_HOPS
+        value: "1"
+      - key: DATABASE_URL
+        sync: false
+      # The Netlify URL of the web app, e.g. https://it-inventory.netlify.app
+      - key: CORS_ORIGINS
+        sync: false

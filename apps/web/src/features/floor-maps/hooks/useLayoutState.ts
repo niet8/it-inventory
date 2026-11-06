@@ -123,8 +123,8 @@ export const layoutReducer = (state: LayoutState, action: LayoutAction): LayoutS
   }
 };
 
-export function useLayoutState() {
-  const [state, dispatch] = useReducer(layoutReducer, initialLayoutState);
+export function useLayoutState(initial: Layout = EMPTY_LAYOUT) {
+  const [state, dispatch] = useReducer(layoutReducer, initial, (layout) => ({ ...initialLayoutState, layout }));
   const { layout } = state;
 
   // Same checks the reducer applies, surfaced so the UI can say why an edit was rejected.

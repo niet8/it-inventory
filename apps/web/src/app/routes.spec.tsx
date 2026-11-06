@@ -1,17 +1,29 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createMemoryRouter, RouterProvider } from 'react-router';
-import { describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
+import { QueryProvider } from '@/app/QueryProvider';
 
 import { routes } from '@/app/routes';
 
 const renderAt = (path: string) => {
   const router = createMemoryRouter(routes, { initialEntries: [path] });
-  render(<RouterProvider router={router} />);
+  render(
+    <QueryProvider>
+      <RouterProvider router={router} />
+    </QueryProvider>,
+  );
   return router;
 };
 
 describe('app routes', () => {
+  // Pages load their data on mount; every request answers with an empty list.
+  beforeEach(() => {
+    vi.stubGlobal('fetch', async () => Response.json({ status: 'OK', data: [] }));
+  });
+  afterEach(() => vi.unstubAllGlobals());
+
   it('sends unknown paths to the devices page', () => {
     const router = renderAt('/nowhere');
 

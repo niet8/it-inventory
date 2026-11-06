@@ -1,6 +1,7 @@
 import { LaptopIcon, MapIcon } from 'lucide-react';
 import { NavLink, Outlet } from 'react-router';
 
+import { ServerStatusBanner } from '@/app/ServerStatusBanner';
 import { cn } from '@/shared/lib/utils';
 
 const NAV_ITEMS = [
@@ -11,6 +12,7 @@ const NAV_ITEMS = [
 export function Layout() {
   return (
     <div className="min-h-dvh bg-background">
+      <ServerStatusBanner />
       <header className="border-b">
         <div className="mx-auto flex h-14 max-w-6xl items-center gap-6 px-4">
           <span className="font-semibold">IT Inventory</span>

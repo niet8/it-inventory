@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { DeviceFormDialog } from '@/features/devices/components/DeviceFormDialog';
 import { DeviceStats } from '@/features/devices/components/DeviceStats';
 import { EmployeesWithDevices } from '@/features/devices/components/EmployeesWithDevices';
+import { StockTab } from '@/features/devices/components/StockTab';
 import { EmployeeFormDialog } from '@/features/employees/components/EmployeeFormDialog';
 import { Button } from '@/shared/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/tabs';
@@ -38,7 +39,9 @@ export function DevicesPage() {
         <TabsContent value="by-employee">
           <EmployeesWithDevices />
         </TabsContent>
-        <TabsContent value="stock" />
+        <TabsContent value="stock">
+          <StockTab />
+        </TabsContent>
       </Tabs>
 
       <DeviceFormDialog open={isAddingDevice} onOpenChange={setIsAddingDevice} />

@@ -1,10 +1,14 @@
 import { CreateEmployeeBodySchema, ListEmployeesQuerySchema, UpdateEmployeeBodySchema } from '@it-inventory/contracts';
 import type { FastifyInstance } from 'fastify';
 
-import type { CreateEmployeeHandler } from '#modules/employees/infrastructure/api/handlers/CreateEmployeeHandler';
-import type { DeleteEmployeeHandler } from '#modules/employees/infrastructure/api/handlers/DeleteEmployeeHandler';
-import type { ListEmployeesHandler } from '#modules/employees/infrastructure/api/handlers/ListEmployeesHandler';
-import type { UpdateEmployeeHandler } from '#modules/employees/infrastructure/api/handlers/UpdateEmployeeHandler';
+import { CreateEmployee } from '#modules/employees/application/CreateEmployee/CreateEmployee';
+import { DeleteEmployee } from '#modules/employees/application/DeleteEmployee/DeleteEmployee';
+import { ListEmployees } from '#modules/employees/application/ListEmployees/ListEmployees';
+import { UpdateEmployee } from '#modules/employees/application/UpdateEmployee/UpdateEmployee';
+import { CreateEmployeeHandler } from '#modules/employees/infrastructure/api/handlers/CreateEmployeeHandler';
+import { DeleteEmployeeHandler } from '#modules/employees/infrastructure/api/handlers/DeleteEmployeeHandler';
+import { ListEmployeesHandler } from '#modules/employees/infrastructure/api/handlers/ListEmployeesHandler';
+import { UpdateEmployeeHandler } from '#modules/employees/infrastructure/api/handlers/UpdateEmployeeHandler';
 import {
   type CreateEmployeeBody,
   type EmployeeParams,
@@ -12,7 +16,9 @@ import {
   type ListEmployeesQuery,
   type UpdateEmployeeBody,
 } from '#modules/employees/infrastructure/api/schemas/employee.schema';
+import { PrismaEmployeeRepository } from '#modules/employees/infrastructure/persistence/repositories/PrismaEmployeeRepository';
 import { validate } from '#shared/infrastructure/api/validate';
+import type { Database } from '#shared/infrastructure/persistence/prisma-client';
 
 export type EmployeesHandlers = {
   create: CreateEmployeeHandler;
@@ -21,7 +27,18 @@ export type EmployeesHandlers = {
   list: ListEmployeesHandler;
 };
 
-// Only routes: verb + path + validation + handler. The handlers are built in the container.
+// The only `new`s of the module: repositories → use cases → handlers.
+export const buildEmployeesHandlers = (database: Database): EmployeesHandlers => {
+  const employeeRepository = new PrismaEmployeeRepository(database);
+  return {
+    create: new CreateEmployeeHandler(new CreateEmployee(employeeRepository)),
+    update: new UpdateEmployeeHandler(new UpdateEmployee(employeeRepository)),
+    delete: new DeleteEmployeeHandler(new DeleteEmployee(employeeRepository)),
+    list: new ListEmployeesHandler(new ListEmployees(employeeRepository)),
+  };
+};
+
+// Only routes: verb + path + validation + handler.
 export const employeesRoutes = (handlers: EmployeesHandlers) => async (fastify: FastifyInstance) => {
   const params = validate(EmployeeParamsSchema, 'params');
 

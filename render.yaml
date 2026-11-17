@@ -6,9 +6,10 @@ services:
     plan: free
     region: frankfurt
     branch: main
-    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm --filter @it-inventory/contracts build && pnpm --filter api build
-    preDeployCommand: pnpm --filter api db:deploy
-    startCommand: pnpm --filter api start
+    # --prod=false: NODE_ENV=production would otherwise skip the devDependencies the build needs (TypeScript, Prisma).
+    buildCommand: corepack enable && pnpm install --frozen-lockfile --prod=false && pnpm --filter @it-inventory/contracts build && pnpm --filter api build
+    # The free plan has no preDeployCommand, so migrations run right before the server starts.
+    startCommand: pnpm --filter api db:deploy && pnpm --filter api start
     healthCheckPath: /health
     envVars:
       - key: NODE_ENV

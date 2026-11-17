@@ -97,7 +97,7 @@ Errors: `400` invalid input · `404` not found · `409` conflict (duplicate or s
 
 ## Deployment
 
-`render.yaml` deploys the API (migrations run before each deploy), `netlify.toml` builds the web app, and the
+`render.yaml` deploys the API (migrations run when the service starts), `netlify.toml` builds the web app, and the
 `Reset demo data` workflow reloads the fictional data every night once the `DEMO_DATABASE_URL` secret is set.
 The public demo has no login by design: rate limiting and the nightly reset keep it usable
 ([ADR-005](docs/ADR.md#adr-005--no-authentication-in-the-public-demo)).

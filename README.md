@@ -3,6 +3,8 @@
 Track the company's IT equipment, who has it, and where everyone sits — with an interactive office floor-map
 editor.
 
+**Live demo:** https://niet8-it-inventory.netlify.app — fictional data, reset every night. The API sleeps on Render's free plan, so the first request can take ~50 s.
+
 ![Floor map editor](docs/screenshots/floor-map-editor.jpg)
 
 ![Devices by employee](docs/screenshots/devices.jpg)
